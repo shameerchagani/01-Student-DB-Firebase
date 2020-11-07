@@ -13,7 +13,7 @@ $(function () {
         $('#btninsert').click (function (event) {
             event.preventDefault();
             
-            if (rollno !== "" && fname !== "" && lname !== "" && dob !== "") {
+            if (rollno.value !== "" && fname.value !== "" && lname.value !== "" && dob.value !== "") {
                 database.ref('student/' + rollno.value).set({
                     Roll_Number: rollno.value,
                     First_Name: fname.value,
@@ -52,7 +52,7 @@ $(function () {
         $('#btnupdate').click (function (event) {
             event.preventDefault();
             
-            if (fname !== "" && lname !== "" && dob !== "") {
+            if (fname.value !== "" && lname.value !== "" && dob.value !== "") {
                 database.ref('student/' + rollno.value).update({
                     First_Name: fname.value,
                     Last_Name: lname.value,
@@ -74,9 +74,11 @@ $(function () {
 
         $('#btndelete').click(function(event){
             event.preventDefault();
+            if(rollno.value!==""){
             database.ref('student/' + rollno.value).remove();
             alert('Data Deleted Successfully!');
+        } else ('Please Enter a Roll number to Delete Record!');
         })
-
+    
 
 });
