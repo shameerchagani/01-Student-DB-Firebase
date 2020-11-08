@@ -6,7 +6,7 @@ $(function () {
     let lname = document.getElementById('lname');
     let dob = document.getElementById('dob');
     let gender = document.getElementById('gender');
-
+    select();
 
     // ------------inserting data-------------------
 
@@ -43,6 +43,7 @@ $(function () {
                 $('#lname').val(snapshot.val().Last_Name);
                 $('#gender').val(snapshot.val().Gender);
                 $('#dob').val(snapshot.val().DOB);
+                select();
             })
         } else alert('Please Enter Roll Number to search');
     })
@@ -65,6 +66,7 @@ $(function () {
             $('#lname').val('');
             $('#dob').val('');
             $('gender').val('');
+            select();
 
         } else alert('Please Enter Values');
 
@@ -82,6 +84,7 @@ $(function () {
             $('#lname').val('');
             $('#dob').val('');
             $('gender').val('');
+            select();
         } else ('Please Enter a Roll number to Delete Record!');
     })
 
@@ -101,5 +104,21 @@ $(function () {
 
         });
     }
-    
-});
+    //--------------------------------Select onchange display details of student------------------------------------
+    $('#select').change(function () {
+        let sel = $('#select').val();
+        database.ref('student/' + sel).on('value', function (snapshot) {
+            // console.log(sel);
+            // console.log(snapshot.val());
+            $('#rollno').val(snapshot.val().Roll_Number);         
+            $('#fname').val(snapshot.val().First_Name);
+            $('#lname').val(snapshot.val().Last_Name);
+            $('#gender').val(snapshot.val().Gender);
+            $('#dob').val(snapshot.val().DOB);
+        })
+
+    })
+
+})
+   
+
