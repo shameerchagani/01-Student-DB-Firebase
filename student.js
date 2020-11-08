@@ -6,84 +6,100 @@ $(function () {
     let lname = document.getElementById('lname');
     let dob = document.getElementById('dob');
     let gender = document.getElementById('gender');
-    
-    
+
+
     // ------------inserting data-------------------
-       
-        $('#btninsert').click (function (event) {
-            event.preventDefault();
-            
-            if (rollno.value !== "" && fname.value !== "" && lname.value !== "" && dob.value !== "") {
-                database.ref('student/' + rollno.value).set({
-                    Roll_Number: rollno.value,
-                    First_Name: fname.value,
-                    Last_Name: lname.value,
-                    DOB: dob.value,
-                    Gender: gender.value
-                });
-               alert('Record Inserted Successfully');
-                $('#rollno').val(Number(rollno.value) + 1);
-                $('#fname').val('');
-                $('#lname').val('');
-                $('#dob').val('');
-                $('gender').val('');
-           
+
+    $('#btninsert').click(function (event) {
+        event.preventDefault();
+
+        if (rollno.value !== "" && fname.value !== "" && lname.value !== "" && dob.value !== "") {
+            database.ref('student/' + rollno.value).set({
+                Roll_Number: rollno.value,
+                First_Name: fname.value,
+                Last_Name: lname.value,
+                DOB: dob.value,
+                Gender: gender.value
+            });
+            alert('Record Inserted Successfully');
+            $('#rollno').val(Number(rollno.value) + 1);
+            $('#fname').val('');
+            $('#lname').val('');
+            $('#dob').val('');
+            $('gender').val('');
+            select();
         } else alert('Please Enter Values');
-        
+
     });
 
-// ----------------------Read/Fetch Data-----------------------
+    // ----------------------Read/Fetch Data-----------------------
 
-        $('#btnsearch').click(function(event){
-            event.preventDefault();
-            
-            if(rollno.value !==""){
-                database.ref('student/' + rollno.value).on('value', function(snapshot){
-                    $('#fname').val(snapshot.val().First_Name);
-                    $('#lname').val(snapshot.val().Last_Name);
-                    $('#gender').val(snapshot.val().Gender);
-                    $('#dob').val(snapshot.val().DOB);
-                })
-            } else alert('Please Enter Roll Number to search');
-        })
+    $('#btnsearch').click(function (event) {
+        event.preventDefault();
 
-// ---------------------Update Data-------------------------
+        if (rollno.value !== "") {
+            database.ref('student/' + rollno.value).on('value', function (snapshot) {
+                $('#fname').val(snapshot.val().First_Name);
+                $('#lname').val(snapshot.val().Last_Name);
+                $('#gender').val(snapshot.val().Gender);
+                $('#dob').val(snapshot.val().DOB);
+            })
+        } else alert('Please Enter Roll Number to search');
+    })
 
-        $('#btnupdate').click (function (event) {
-            event.preventDefault();
-            
-            if (fname.value !== "" && lname.value !== "" && dob.value !== "") {
-                database.ref('student/' + rollno.value).update({
-                    First_Name: fname.value,
-                    Last_Name: lname.value,
-                    DOB: dob.value,
-                    Gender: gender.value
-                });
-                alert('Record Updated Successfully');
-                $('#rollno').val('');
-                $('#fname').val('');
-                $('#lname').val('');
-                $('#dob').val('');
-                $('gender').val('');
-        
+    // ---------------------Update Data-------------------------
+
+    $('#btnupdate').click(function (event) {
+        event.preventDefault();
+
+        if (fname.value !== "" && lname.value !== "" && dob.value !== "") {
+            database.ref('student/' + rollno.value).update({
+                First_Name: fname.value,
+                Last_Name: lname.value,
+                DOB: dob.value,
+                Gender: gender.value
+            });
+            alert('Record Updated Successfully');
+            $('#rollno').val('');
+            $('#fname').val('');
+            $('#lname').val('');
+            $('#dob').val('');
+            $('gender').val('');
+
         } else alert('Please Enter Values');
 
-        });
+    });
 
-// --------------------- Deleting Data-----------------------
+    // --------------------- Deleting Data-----------------------
 
-        $('#btndelete').click(function(event){
-            event.preventDefault();
-            if(rollno.value!==""){
+    $('#btndelete').click(function (event) {
+        event.preventDefault();
+        if (rollno.value !== "") {
             database.ref('student/' + rollno.value).remove();
             alert('Data Deleted Successfully!');
-                $('#rollno').val('');
-                $('#fname').val('');
-                $('#lname').val('');
-                $('#dob').val('');
-                $('gender').val('');
+            $('#rollno').val('');
+            $('#fname').val('');
+            $('#lname').val('');
+            $('#dob').val('');
+            $('gender').val('');
         } else ('Please Enter a Roll number to Delete Record!');
-        })
-    
+    })
 
+
+
+    // --------------------------------Fill Roll Numbers into Select From DropDown List----------------------------
+
+    function select() {
+        $('#select').empty();
+        database.ref('student/').once('value', function (snapshot) {
+            snapshot.forEach(function (childSnapshot) {
+                let data = childSnapshot.val();
+                //console.log(data); 
+                let option = $('<option>' + data.Roll_Number + '</option>');
+                $('#select').append(option);
+            });
+
+        });
+    }
+    
 });

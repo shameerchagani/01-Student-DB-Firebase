@@ -22,17 +22,26 @@
         <h1 class="text-center">Student Database</h1>
     </header>
     <form method="POST" class="frm-main mt-2 p-2 needs-validation" novalidate>
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
+        <div class="form-row ml-auto">
+            <div class="row form-group">
+            <div class="col-md-6">
+                
                     <label for="rollno">Roll Number</label>
                     <input type="number" name="rollno" id="rollno" class="form-control" min="1001"
                         placeholder="Roll Number" required />
+                
+            </div>
+            <div class="col-md-4">
+                <div class="align-middle mt-3 pt-3">
+                    <button id="btnsearch" class="btn btn-info">Search</button>
                 </div>
             </div>
+        </div>
             <div class="col">
-                <div class="form-group text-center pt-3">
-                    <button id="btnsearch" class="btn btn-info w-50">Search</button>
+                <div class="form-group col-md-auto pt-3">
+                    <select id="select" class="form-control">
+                        <option selected disabled>--Select RollNo--</option>
+                    </select>
                 </div>
             </div>
         </div>
@@ -93,11 +102,11 @@
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
     <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-app.js"></script>
-    
+
     <!-- TODO: Add SDKs for Firebase products that you want to use
      https://firebase.google.com/docs/web/setup#available-libraries -->
 
-     <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.1/firebase-database.js"></script>
 
     <script>
         // Your web app's Firebase configuration
