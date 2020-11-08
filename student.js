@@ -77,6 +77,11 @@ $(function () {
             if(rollno.value!==""){
             database.ref('student/' + rollno.value).remove();
             alert('Data Deleted Successfully!');
+                $('#rollno').val('');
+                $('#fname').val('');
+                $('#lname').val('');
+                $('#dob').val('');
+                $('gender').val('');
         } else ('Please Enter a Roll number to Delete Record!');
         })
     
