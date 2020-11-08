@@ -87,6 +87,16 @@ $(function () {
             select();
         } else ('Please Enter a Roll number to Delete Record!');
     })
+    //--------------------------------Clear Button Function------------------------------------
+   
+    $('#btnclear').click(function(event){
+        event.preventDefault();
+            $('#rollno').val('');
+            $('#fname').val('');
+            $('#lname').val('');
+            $('#dob').val('');
+            $('gender').val('--Select Gender--');
+    })
 
 
 
@@ -94,7 +104,7 @@ $(function () {
 
     function select() {
         $('#select').empty();
-        database.ref('student/').once('value', function (snapshot) {
+        database.ref('student/').on('value', function (snapshot) {
             snapshot.forEach(function (childSnapshot) {
                 let data = childSnapshot.val();
                 //console.log(data); 
